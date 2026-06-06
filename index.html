@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lital - Employee Experience Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #fafaf8; --surface: #ffffff; --text: #1a1a18;
+    --muted: #6b6b65; --border: #e8e6e0; --accent: #2d4a3e; --accent-light: #e8f0ec;
+  }
+  body { font-family: 'Heebo', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .hero { padding: 2.5rem 2rem 1rem; max-width: 900px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(36px, 6vw, 56px); line-height: 1.1; color: var(--text); margin-bottom: 0.3rem; }
+  .hero-role { font-size: 16px; color: var(--muted); font-weight: 300; margin-bottom: 0.75rem; }
+  .hero-bio { font-size: 15px; line-height: 1.75; color: var(--muted); max-width: 560px; }
+  .hero-divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+  .stats { display: flex; gap: 2.5rem; flex-wrap: wrap; max-width: 900px; margin: 0 auto 2rem; padding: 0 2rem; }
+  .stat-item { display: flex; flex-direction: column; }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--text); }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .section { max-width: 900px; margin: 0 auto; padding: 0 2rem 4rem; }
+  .section-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; display: flex; align-items: center; gap: 12px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .events-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .event-card { cursor: pointer; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface); transition: transform 0.2s, box-shadow 0.2s; }
+  .event-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+  .event-card.featured { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; }
+  .card-img { width: 100%; height: 220px; object-fit: cover; display: block; }
+  .event-card.featured .card-img { height: 100%; min-height: 280px; }
+  .card-body { padding: 1.25rem 1.5rem 1.5rem; }
+  .event-card.featured .card-body { display: flex; flex-direction: column; justify-content: center; padding: 2rem; }
+  .card-category { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .card-title { font-family: 'DM Serif Display', serif; font-size: 20px; line-height: 1.25; margin-bottom: 8px; color: var(--text); }
+  .event-card.featured .card-title { font-size: 26px; }
+  .card-desc { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .card-tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; background: var(--accent-light); color: var(--accent); }
+  .card-cta { margin-top: 1.25rem; font-size: 13px; color: var(--accent); display: flex; align-items: center; gap: 6px; font-weight: 500; }
+  .lightbox { position: fixed; inset: 0; background: rgba(250,250,248,0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
+  .lightbox.open { display: flex; }
+  .lb-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--text); font-size: 28px; cursor: pointer; opacity: 0.6; line-height: 1; }
+  .lb-close:hover { opacity: 1; }
+  .lb-title { color: var(--text); font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 1.25rem; text-align: center; }
+  .lb-img-wrap { position: relative; max-width: 800px; width: 100%; }
+  .lb-img { width: 100%; max-height: 65vh; object-fit: contain; border-radius: 8px; display: block; }
+  .lb-nav { display: flex; gap: 1rem; margin-top: 1.25rem; align-items: center; }
+  .lb-btn { background: rgba(0,0,0,0.07); border: 1px solid rgba(0,0,0,0.15); color: var(--text); font-size: 22px; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+  .lb-btn:hover { background: rgba(0,0,0,0.13); }
+  .lb-counter { color: var(--muted); font-size: 13px; min-width: 50px; text-align: center; }
+  .lb-thumbs { display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; justify-content: center; max-width: 800px; }
+  .lb-thumb { width: 52px; height: 52px; object-fit: cover; border-radius: 6px; cursor: pointer; opacity: 0.55; transition: opacity 0.15s; border: 2px solid transparent; }
+  .lb-thumb.active { opacity: 1; border-color: var(--accent); }
+  @media (max-width: 600px) {
+    .hero { padding: 1.5rem 1.25rem 0.75rem; }
+    .hero-name { font-size: clamp(28px, 8vw, 42px); }
+    .hero-role { font-size: 14px; }
+    .hero-bio { font-size: 14px; }
+    .stats { gap: 1.5rem; margin-bottom: 1.5rem; padding: 0 1.25rem; flex-wrap: wrap; }
+    .stat-num { font-size: 24px; }
+    .section { padding: 0 1.25rem 2.5rem; }
+    .events-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .event-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+    .event-card.featured .card-img { height: 240px; min-height: 240px; }
+    .event-card.featured .card-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .event-card.featured .card-title { font-size: 20px; }
+    .card-img { height: 200px; }
+    .event-card.portrait { grid-row: span 1; }
+    .event-card.portrait .card-img { height: 220px; min-height: 220px; }
+    .lb-img-wrap { max-width: 100%; }
+    .lb-img { max-height: 55vh; }
+    .lb-thumbs { gap: 6px; }
+    .lb-thumb { width: 42px; height: 42px; }
+    .lb-title { font-size: 16px; }
+  }
+
+  .event-card.portrait { grid-row: span 2; display: flex; flex-direction: column; }
+  .event-card.portrait .card-img { height: 100%; min-height: 420px; flex: 1; object-fit: cover; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <p class="hero-eyebrow">Employee Experience Portfolio</p>
+  <h1 class="hero-name">Lital Cohen</h1>
+  <p class="hero-role">Office & Employee Experience Manager · 7+ Years in Startups</p>
+  <p class="hero-bio">Employee Experience Manager creating meaningful experiences through company events, employee wellbeing, and culture initiatives that connect people, celebrate milestones, and foster a lasting sense of belonging.</p>
+  <hr class="hero-divider">
+</div>
+<div class="stats">
+  <div class="stat-item"><span class="stat-num">7+</span><span class="stat-label">Years Experience</span></div>
+  <div class="stat-item"><span class="stat-num">∞</span><span class="stat-label">Memories Created</span></div>
+</div>
+<div class="section">
+  <p class="section-label">Selected Work</p>
+  <div class="events-grid" id="grid"></div>
+</div>
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLb()">×</button>
+  <p class="lb-title" id="lb-title"></p>
+  <div class="lb-img-wrap"><img class="lb-img" id="lb-img" src="" alt=""></div>
+  <div class="lb-nav">
+    <button class="lb-btn" onclick="lbNav(-1)">‹</button>
+    <span class="lb-counter" id="lb-counter"></span>
+    <button class="lb-btn" onclick="lbNav(1)">›</button>
+  </div>
+  <div class="lb-thumbs" id="lb-thumbs"></div>
+</div>
+<script>
+const IMGS = {
+  "Setai Kinneret Offsite": [
+    "images/img_001.jpg",
+    "images/img_002.jpg",
+    "images/img_003.jpg",
+    "images/img_004.jpg",
+    "images/img_005.jpg",
+    "images/img_006.jpg",
+    "images/img_007.jpg"
+  ],
+  "Orient Jerusalem Offsite": [
+    "images/img_008.jpg",
+    "images/img_009.jpg",
+    "images/img_010.jpg",
+    "images/img_011.jpg",
+    "images/img_012.jpg",
+    "images/img_013.jpg",
+    "images/img_014.jpg",
+    "images/img_015.jpg"
+  ],
+  "Seaside Picnic": [
+    "images/img_016.jpg",
+    "images/img_017.jpg",
+    "images/img_018.jpg",
+    "images/img_019.jpg",
+    "images/img_020.jpg",
+    "images/img_021.jpg",
+    "images/img_022.jpg",
+    "images/img_023.jpg",
+    "images/img_024.jpg",
+  ],
+  "Shavuot Brunch": [
+    "images/img_025.jpg",
+    "images/img_026.jpg",
+    "images/img_027.jpg",
+    "images/img_028.jpg",
+    "images/img_029.jpg"
+  ],
+  "Shavuot with Jacobs Farm": [
+    "images/img_030.jpg",
+    "images/img_031.jpg",
+    "images/img_032.jpg",
+    "images/img_033.jpg",
+    "images/img_034.jpg",
+    "images/img_035.jpg",
+    "images/img_036.jpg",
+  ],
+  "Jaffa Rooftop": [
+    "images/img_037.jpg",
+    "images/img_038.jpg",
+    "images/img_039.jpg",
+    "images/img_040.jpg",
+    "images/img_041.jpg",
+  ],
+  "Purim Casino": [
+    "images/img_042.jpg",
+    "images/img_043.jpg",
+    "images/img_044.jpg",
+    "images/img_045.jpg",
+    "images/img_046.jpg",
+    "images/img_047.jpg",
+    "images/img_048.jpg",
+    "images/img_049.jpg",
+  ],
+  "Agadir Food Truck": [
+    "images/img_050.png",
+    "images/img_051.jpg",
+    "images/img_052.jpg",
+    "images/img_053.jpg",
+    "images/img_054.jpg"
+  ],
+  "Rosh Hashanah Brunch in the Park": [
+    "images/img_055.png",
+    "images/img_056.jpg",
+    "images/img_057.jpg",
+    "images/img_058.jpg",
+    "images/img_059.jpg"
+  ],
+  "Independence Day BBQ": [
+    "images/img_060.jpg",
+    "images/img_061.jpg",
+    "images/img_062.jpg",
+    "images/img_063.jpg",
+  ],
+  "Office Opening Celebration": [
+    "images/img_064.jpg",
+    "images/img_065.jpg",
+    "images/img_066.jpg",
+    "images/img_067.jpg",
+    "images/img_068.jpg",
+    "images/img_069.jpg",
+    "images/img_070.jpg",
+    "images/img_071.jpg"
+  ],
+  "Bagel Breakfast": [
+    "images/img_072.jpg",
+    "images/img_073.jpg",
+    "images/img_074.jpg",
+  ],
+};
+
+const EVENTS = [{"id": "Setai Kinneret Offsite", "title": "Company Offsite - Setai Kinneret", "subtitle": "Full Company Retreat", "desc": "Two days at the stunning Setai Kinneret - welcome kits, curated team activities, and a sunset dinner by the Sea of Galilee. An unforgettable retreat that brought the whole company together.", "tags": ["Company Offsite", "Welcome Kit", "Retreat", "Kinneret"], "featured": true}, {"id": "Shavuot Brunch", "title": "Shavuot Celebration Brunch", "subtitle": "Holiday Event", "desc": "An abundant Shavuot spread - cheesecakes, croissants, artisan cheese boards with flowers, and homemade jams. Individual gift deliveries to every employee.", "tags": ["Shavuot", "Brunch", "Holiday", "Employee Gifts"], "featured": false, "portrait": false}, {"id": "Shavuot with Jacobs Farm", "title": "Shavuot at Jacob's Farm", "subtitle": "Seasonal Celebration", "desc": "A harvest-themed Shavuot experience at Jacob's Farm - fresh produce, farm-to-table delights, and a hands-on experience connecting the team to the land.", "tags": ["Shavuot", "Farm", "Seasonal", "Outdoor"], "featured": false}, {"id": "Seaside Picnic", "title": "Seaside Picnic", "subtitle": "Team Outing", "desc": "A relaxed afternoon picnic by the sea - artisan spread, lawn games, and golden hour vibes. The perfect antidote to a busy quarter.", "tags": ["Team Outing", "Picnic", "Outdoor", "Seaside"], "featured": true}, {"id": "Independence Day BBQ", "title": "Independence Day BBQ", "subtitle": "National Holiday", "desc": "A classic Israeli Independence Day BBQ - smoky grills, cold drinks, and the kind of team bonding that only happens around an open flame.", "tags": ["Independence Day", "BBQ", "Outdoor", "Israeli"], "featured": false, "portrait": true}, {"id": "Rosh Hashanah Brunch in the Park", "title": "Rosh Hashanah Brunch in the Park", "subtitle": "Holiday Event", "desc": "Ushering in the new year with an alfresco brunch - honey, pomegranates, fresh pastries, and warm company under the trees.", "tags": ["Rosh Hashanah", "Brunch", "Park", "Holiday"], "featured": false, "portrait": true}, {"id": "Agadir Food Truck", "title": "Agadir Food Truck", "subtitle": "Passover Celebration", "desc": "An outdoor happy hour featuring the beloved Agadir Burger food truck, colorful donuts, and champagne glasses - a memorable spring celebration.", "tags": ["Happy Hour", "Food Truck", "Passover", "Outdoor"], "featured": false}, {"id": "Office Opening Celebration", "title": "Office Opening Celebration", "subtitle": "Milestone Event", "desc": "Celebrating a new chapter - the grand opening of a new office space, filled with excitement, balloons, toasts, and big dreams for what's ahead.", "tags": ["Office Opening", "Milestone", "Celebration", "Company"], "featured": false}, {"id": "Orient Jerusalem Offsite", "title": "Orient Express - Jerusalem All-Hands", "subtitle": "All-Hands Conference", "desc": "Company all-hands in Jerusalem - curated breakfast spreads, a themed Orient Express event in a historic stone venue, and an infinity pool overlooking the Old City.", "tags": ["All-Hands", "Jerusalem", "Orient Express", "Conference"], "featured": false, "portrait": true}, {"id": "Jaffa Rooftop", "title": "Jaffa Rooftop Evening", "subtitle": "Team Event", "desc": "An intimate rooftop gathering in the heart of Old Jaffa - drinks against the skyline, the scent of the sea, and conversations that ran late into the night.", "tags": ["Rooftop", "Jaffa", "Evening Event", "Social"], "featured": false}, {"id": "Purim Casino", "title": "Purim Casino Night", "subtitle": "Holiday Party", "desc": "A glam casino-themed Purim party - poker tables, costumes, cocktails, and non-stop energy. The most fun the office has ever seen.", "tags": ["Purim", "Casino", "Holiday Party", "Themed"], "featured": false}];
+
+
+let curEvent = null, curIdx = 0;
+
+function buildGrid() {
+  const grid = document.getElementById('grid');
+  EVENTS.forEach((ev) => {
+    const imgs = IMGS[ev.id] || [];
+    if (!imgs.length) return;
+    const card = document.createElement('div');
+    card.className = 'event-card' + (ev.featured ? ' featured' : '') + (ev.portrait ? ' portrait' : '');
+    card.onclick = () => openLb(ev.id, 0);
+    // Cover is always image index 0 (file #1)
+    card.innerHTML = `
+      <img class="card-img" src="${imgs[0]}" alt="${ev.title}" loading="lazy">
+      <div class="card-body">
+        <p class="card-category">${ev.subtitle}</p>
+        <h2 class="card-title">${ev.title}</h2>
+        <p class="card-desc">${ev.desc}</p>
+        <div class="card-tags">${ev.tags.map(t=>`<span class="card-tag">${t}</span>`).join('')}</div>
+        <p class="card-cta">View photos &rarr;</p>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function openLb(id, idx) {
+  curEvent = EVENTS.find(e => e.id === id);
+  curIdx = idx;
+  document.getElementById('lightbox').classList.add('open');
+  renderLb();
+}
+function closeLb() { document.getElementById('lightbox').classList.remove('open'); }
+function lbNav(dir) {
+  const imgs = IMGS[curEvent.id] || [];
+  curIdx = (curIdx + dir + imgs.length) % imgs.length;
+  renderLb();
+}
+function renderLb() {
+  const imgs = IMGS[curEvent.id] || [];
+  document.getElementById('lb-title').textContent = curEvent.title;
+  document.getElementById('lb-img').src = imgs[curIdx] || '';
+  document.getElementById('lb-counter').textContent = (curIdx+1) + ' / ' + imgs.length;
+  document.getElementById('lb-thumbs').innerHTML = imgs.map((src,i) =>
+    `<img class="lb-thumb ${i===curIdx?'active':''}" src="${src}" onclick="curIdx=${i};renderLb()" alt="">`
+  ).join('');
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLb();
+});
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+  if (e.key === 'Escape') closeLb();
+});
+buildGrid();
+
+// Touch swipe for mobile lightbox
+let touchStartX = 0;
+document.getElementById('lightbox').addEventListener('touchstart', function(e) {
+  touchStartX = e.touches[0].clientX;
+}, {passive: true});
+document.getElementById('lightbox').addEventListener('touchend', function(e) {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) lbNav(1);
+    else lbNav(-1);
+  }
+}, {passive: true});
+
+</script>
+</body>
+</html>
