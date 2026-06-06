@@ -15,7 +15,7 @@
   body { font-family: 'Heebo', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
   .hero { padding: 2.5rem 2rem 1rem; max-width: 900px; margin: 0 auto; }
   .hero-eyebrow { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
-  .hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(36px, 6vw, 56px); line-height: 1.1; color: var(--text); margin-bottom: 0.5rem; }
+  .hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(36px, 6vw, 56px); line-height: 1.1; color: var(--text); margin-bottom: 0; }
   .hero-role { font-size: 16px; color: var(--muted); font-weight: 300; margin-bottom: 0.75rem; }
   .hero-bio { font-size: 15px; line-height: 1.75; color: var(--muted); max-width: 560px; }
   .hero-divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
@@ -70,29 +70,20 @@
     .event-card.featured .card-img { height: 240px; min-height: 240px; }
     .event-card.featured .card-body { padding: 1.25rem 1.5rem 1.5rem; }
     .event-card.featured .card-title { font-size: 20px; }
-    .event-card.featured-tall { grid-column: span 1; display: flex; flex-direction: column; }
-    .event-card.featured-tall .card-img { height: 260px; min-height: 260px; width: 100%; flex-shrink: 0; position: static; }
-    .event-card.featured-tall .card-body { position: static; padding: 1.25rem 1.5rem 1.5rem; background: var(--card); text-align: left; }
-    .event-card.featured-tall .card-title { font-size: 20px; color: var(--text); }
-    .event-card.featured-tall .card-category { color: var(--accent); }
-    .event-card.featured-tall .card-desc { color: var(--muted); }
     .card-img { height: 200px; }
   
-  .event-card.featured-tall { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; }
-  .event-card.featured-tall .card-img { height: 100%; min-height: 420px; object-fit: cover; }
-  .event-card.featured-tall .card-body { display: flex; flex-direction: column; justify-content: center; padding: 2rem; }
   .event-card.featured-slim { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; }
   .event-card.featured-slim .card-img { height: 100%; min-height: 340px; object-fit: cover; object-position: right center; }
   .event-card.featured-slim .card-body { display: flex; flex-direction: column; justify-content: center; padding: 2rem; }
   .event-card.featured-slim .card-title { font-size: 22px; }
-  .event-card.portrait .card-img { height: 220px; min-height: 220px; }
+  .event-card.portrait { grid-row: span 1; }
+    .event-card.portrait .card-img { height: 220px; min-height: 220px; }
     .lb-img-wrap { max-width: 100%; }
     .lb-img { max-height: 55vh; }
     .lb-thumbs { gap: 6px; }
     .lb-thumb { width: 42px; height: 42px; }
     .lb-title { font-size: 16px; }
   }
-
 
 
   .event-card.featured-slim { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; }
@@ -232,7 +223,7 @@ const IMGS = {
   ],
 };
 
-const EVENTS = [{"id": "Setai Kinneret Offsite", "title": "Company Offsite - Setai Kinneret", "subtitle": "Full Company Retreat", "desc": "Two days at the stunning Setai Kinneret - welcome kits, curated team activities, and a sunset dinner by the Sea of Galilee. An unforgettable retreat that brought the whole company together.", "tags": ["Company Offsite", "Welcome Kit", "Retreat", "Kinneret"], "featured": true}, {"id": "Shavuot Brunch", "title": "Shavuot Celebration Brunch", "subtitle": "Holiday Event", "desc": "An abundant Shavuot spread - cheesecakes, croissants, artisan cheese boards with flowers, and homemade jams. Individual gift deliveries to every employee.", "tags": ["Shavuot", "Brunch", "Holiday", "Employee Gifts"], "featured": true, "portrait": false, "slim": false, "tall": true}, {"id": "Seaside Picnic", "title": "Seaside Picnic", "subtitle": "Team Outing", "desc": "A relaxed afternoon picnic by the sea - artisan spread, lawn games, and golden hour vibes. The perfect antidote to a busy quarter.", "tags": ["Team Outing", "Picnic", "Outdoor", "Seaside"], "featured": false}, {"id": "Shavuot with Jacobs Farm", "title": "Shavuot at Jacob's Farm", "subtitle": "Seasonal Celebration", "desc": "A harvest-themed Shavuot experience at Jacob's Farm - fresh produce, farm-to-table delights, and a hands-on experience connecting the team to the land.", "tags": ["Shavuot", "Farm", "Seasonal", "Outdoor"], "featured": false}, {"id": "Independence Day BBQ", "title": "Independence Day BBQ", "subtitle": "National Holiday", "desc": "A classic Israeli Independence Day BBQ - smoky grills, cold drinks, and the kind of team bonding that only happens around an open flame.", "tags": ["Independence Day", "BBQ", "Outdoor", "Israeli"], "featured": false, "portrait": true}, {"id": "Rosh Hashanah Brunch in the Park", "title": "Rosh Hashanah Brunch in the Park", "subtitle": "Holiday Event", "desc": "Ushering in the new year with an alfresco brunch - honey, pomegranates, fresh pastries, and warm company under the trees.", "tags": ["Rosh Hashanah", "Brunch", "Park", "Holiday"], "featured": false, "portrait": true}, {"id": "Agadir Food Truck", "title": "Spring Street Food Event", "subtitle": "Passover Celebration", "desc": "An outdoor happy hour featuring the beloved Agadir Burger food truck, colorful donuts, and champagne glasses - a memorable spring celebration.", "tags": ["Happy Hour", "Food Truck", "Passover", "Outdoor"], "featured": false}, {"id": "Office Opening Celebration", "title": "Office Opening Celebration", "subtitle": "Milestone Event", "desc": "Celebrating a new chapter - the grand opening of a new office space, filled with excitement, balloons, toasts, and big dreams for what's ahead.", "tags": ["Office Opening", "Milestone", "Celebration", "Company"], "featured": false}, {"id": "Orient Jerusalem Offsite", "title": "Company Offsite - Orient Jerusalem", "subtitle": "FULL COMPANY RETREAT", "desc": "Company all-hands in Jerusalem - curated breakfast spreads, a themed Orient Express event in a historic stone venue, and an infinity pool overlooking the Old City.", "tags": ["All-Hands", "Jerusalem", "Orient Express"], "featured": false, "portrait": true}, {"id": "Jaffa Rooftop", "title": "Jaffa Rooftop Evening", "subtitle": "Team Event", "desc": "An intimate rooftop gathering in the heart of Old Jaffa - drinks against the skyline, the scent of the sea, and conversations that ran late into the night.", "tags": ["Rooftop", "Jaffa", "Evening Event", "Social"], "featured": false}, {"id": "Purim Casino", "title": "Purim Casino Night", "subtitle": "Holiday Party", "desc": "A glam casino-themed Purim party - poker tables, costumes, cocktails, and non-stop energy. The most fun the office has ever seen.", "tags": ["Purim", "Casino", "Holiday Party", "Themed"], "featured": false}];
+const EVENTS = [{"id": "Setai Kinneret Offsite", "title": "Company Offsite - Setai Kinneret", "subtitle": "Full Company Retreat", "desc": "Two days at the stunning Setai Kinneret - welcome kits, curated team activities, and a sunset dinner by the Sea of Galilee. An unforgettable retreat that brought the whole company together.", "tags": ["Company Offsite", "Welcome Kit", "Retreat", "Kinneret"], "featured": true}, {"id": "Shavuot Brunch", "title": "Shavuot Celebration Brunch", "subtitle": "Holiday Event", "desc": "An abundant Shavuot spread - cheesecakes, croissants, artisan cheese boards with flowers, and homemade jams. Individual gift deliveries to every employee.", "tags": ["Shavuot", "Brunch", "Holiday", "Employee Gifts"], "featured": false, "portrait": true, "slim": false}, {"id": "Seaside Picnic", "title": "Seaside Picnic", "subtitle": "Team Outing", "desc": "A relaxed afternoon picnic by the sea - artisan spread, lawn games, and golden hour vibes. The perfect antidote to a busy quarter.", "tags": ["Team Outing", "Picnic", "Outdoor", "Seaside"], "featured": false}, {"id": "Shavuot with Jacobs Farm", "title": "Shavuot at Jacob's Farm", "subtitle": "Seasonal Celebration", "desc": "A harvest-themed Shavuot experience at Jacob's Farm - fresh produce, farm-to-table delights, and a hands-on experience connecting the team to the land.", "tags": ["Shavuot", "Farm", "Seasonal", "Outdoor"], "featured": false}, {"id": "Independence Day BBQ", "title": "Independence Day BBQ", "subtitle": "National Holiday", "desc": "A classic Israeli Independence Day BBQ - smoky grills, cold drinks, and the kind of team bonding that only happens around an open flame.", "tags": ["Independence Day", "BBQ", "Outdoor", "Israeli"], "featured": false, "portrait": true}, {"id": "Rosh Hashanah Brunch in the Park", "title": "Rosh Hashanah Brunch in the Park", "subtitle": "Holiday Event", "desc": "Ushering in the new year with an alfresco brunch - honey, pomegranates, fresh pastries, and warm company under the trees.", "tags": ["Rosh Hashanah", "Brunch", "Park", "Holiday"], "featured": false, "portrait": true}, {"id": "Agadir Food Truck", "title": "Spring Street Food Event", "subtitle": "Passover Celebration", "desc": "An outdoor happy hour featuring the beloved Agadir Burger food truck, colorful donuts, and champagne glasses - a memorable spring celebration.", "tags": ["Happy Hour", "Food Truck", "Passover", "Outdoor"], "featured": false}, {"id": "Office Opening Celebration", "title": "Office Opening Celebration", "subtitle": "Milestone Event", "desc": "Celebrating a new chapter - the grand opening of a new office space, filled with excitement, balloons, toasts, and big dreams for what's ahead.", "tags": ["Office Opening", "Milestone", "Celebration", "Company"], "featured": false}, {"id": "Orient Jerusalem Offsite", "title": "Company Offsite - Orient Jerusalem", "subtitle": "FULL COMPANY RETREAT", "desc": "Company all-hands in Jerusalem - curated breakfast spreads, a themed Orient Express event in a historic stone venue, and an infinity pool overlooking the Old City.", "tags": ["All-Hands", "Jerusalem", "Orient Express"], "featured": false, "portrait": true}, {"id": "Jaffa Rooftop", "title": "Jaffa Rooftop Evening", "subtitle": "Team Event", "desc": "An intimate rooftop gathering in the heart of Old Jaffa - drinks against the skyline, the scent of the sea, and conversations that ran late into the night.", "tags": ["Rooftop", "Jaffa", "Evening Event", "Social"], "featured": false}, {"id": "Purim Casino", "title": "Purim Casino Night", "subtitle": "Holiday Party", "desc": "A glam casino-themed Purim party - poker tables, costumes, cocktails, and non-stop energy. The most fun the office has ever seen.", "tags": ["Purim", "Casino", "Holiday Party", "Themed"], "featured": false}];
 
 
 let curEvent = null, curIdx = 0;
@@ -243,7 +234,7 @@ function buildGrid() {
     const imgs = IMGS[ev.id] || [];
     if (!imgs.length) return;
     const card = document.createElement('div');
-    card.className = 'event-card' + (ev.featured ? ' featured' : '') + (ev.portrait ? ' portrait' : '') + (ev.slim ? ' featured-slim' : '') + (ev.tall ? ' featured-tall' : '');
+    card.className = 'event-card' + (ev.featured ? ' featured' : '') + (ev.portrait ? ' portrait' : '') + (ev.slim ? ' featured-slim' : '');
     card.onclick = () => openLb(ev.id, 0);
     // Cover is always image index 0 (file #1)
     card.innerHTML = `
